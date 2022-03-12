@@ -1,4 +1,3 @@
-from re import T
 from errors import *
 from tokens import *
 
@@ -18,6 +17,7 @@ class VirtualMachine:
                     return 1, STACK_HEIGHT % 1
                 A, tA = stack.pop()
                 B, tB = stack.pop()
+                stack_height -= 2
                 if tA == tB or is_number_type(tB) and is_number_type(tB):
                     stack.append([A+B, tA])
                     stack_height -= 1
@@ -30,6 +30,7 @@ class VirtualMachine:
                     return 1, STACK_HEIGHT % 1
                 A, tA = stack.pop()
                 B, tB = stack.pop()
+                stack_height -= 2
                 if is_number_type(tA) and is_number_type(tB):
                     subtraction = A-B
                     stack.append([A-B, TK_FLOAT if int(subtraction) != subtraction else TK_INT])
@@ -43,6 +44,7 @@ class VirtualMachine:
                     return 1, STACK_HEIGHT % 1
                 A, tA = stack.pop()
                 B, tB = stack.pop()
+                stack_height -= 2
                 if is_number_type(tA) and is_number_type(tB):
                     if B != 0:
                         stack.append([A/B, TK_FLOAT])
@@ -57,6 +59,7 @@ class VirtualMachine:
                     return 1, STACK_HEIGHT % 1
                 A, tA = stack.pop()
                 B, tB = stack.pop()
+                stack_height -= 2
                 if tA == tB == TK_STR:
                     return 1, MUL_STR_STR
                 if tA != TK_FLOAT and tB != TK_FLOAT:
