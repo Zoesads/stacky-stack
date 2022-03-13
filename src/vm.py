@@ -80,7 +80,8 @@ class VirtualMachine:
                 if typ == TK_STR:
                     print(val)
                     continue
-                print(val if typ == TK_INT else round(val, 15))
+                print(round(val, 15))
+                continue
             if ins[0] == "rev":
                 if stack_height == 0:
                     return 1, EMPTY_STACK
