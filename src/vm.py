@@ -18,9 +18,10 @@ class VirtualMachine:
                 A, tA = stack.pop()
                 B, tB = stack.pop()
                 stack_height -= 2
-                if tA == tB or is_number_type(tB) and is_number_type(tB):
-                    stack.append([A+B, tA])
-                    stack_height -= 1
+                if is_number_type(tB) and is_number_type(tB):
+                    addition = A + B
+                    stack.append([addition, TK_FLOAT if int(addition) != addition else TK_INT])
+                    stack_height += 1
                     continue
                 return 1, ADD_STR_NUM
             if ins[0] == "sub":
@@ -48,7 +49,7 @@ class VirtualMachine:
                 if is_number_type(tA) and is_number_type(tB):
                     if B != 0:
                         stack.append([A/B, TK_FLOAT])
-                        stack_height -= 1
+                        stack_height += 1
                         continue
                     return 1, DIV_BY_ZERO
                 return 1, DIV_STR_NUM if tA != tB else DIV_STR_STR
@@ -75,8 +76,11 @@ class VirtualMachine:
             if ins[0] == "out":
                 if stack_height == 0:
                     return 1, EMPTY_STACK
-                print(stack[stack_height-1][0])
-                continue
+                val, typ = stack[stack_height-1]
+                if typ == TK_STR:
+                    print(val)
+                    continue
+                print(val if typ == TK_INT else round(val, 15))
             if ins[0] == "rev":
                 if stack_height == 0:
                     return 1, EMPTY_STACK
