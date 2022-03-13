@@ -35,7 +35,7 @@ class VirtualMachine:
                 if is_number_type(tA) and is_number_type(tB):
                     subtraction = A-B
                     stack.append([A-B, TK_FLOAT if int(subtraction) != subtraction else TK_INT])
-                    stack_height -= 1
+                    stack_height += 1
                     continue
                 return 1, SUB_STR_NUM if tA != tB else SUB_STR_STR
             if ins[0] == "div":
