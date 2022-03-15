@@ -15,7 +15,7 @@ def run(context):
 def main():
     if len(input_args) == 1:
         while 1:
-            context = input("Enter instruction: ")
+            context = input("Enter list of instruction: ")
             if context == "exit":
                 return
             run(context)

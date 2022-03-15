@@ -3,7 +3,7 @@ from errors import *
 from tokens import *
 
 class Analyze:
-    def __init__(self, context=""):
+    def __init__(self, s=""):
         def get_analyzed():
             def check(words):
                 for index, word in enumerate(words):
@@ -49,17 +49,17 @@ class Analyze:
                 reading_str = False
                 word = ""
                 word_list = []
+                context = s.replace("\\n", "\n")
                 for char in context:
                     if char == "":
                         continue
                     if char in [" ", "\n"]:
-                        if reading_str and char == " ":
-                            word += " "
-                            continue
+                        if reading_str:
+                            word += char
                         if not reading_str and word != "":
                             word_list.append(word)
                             word = ""
-                            continue
+                        continue
                     if char in ["'", '"']:
                         reading_str = not reading_str
                     word += char
